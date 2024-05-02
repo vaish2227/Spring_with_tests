@@ -29,7 +29,6 @@ jobs:
             -Dsonar.projectKey=my-Java-web-app ^
             -Dsonar.host.url="${{ secrets.SONAR_HOST_URL }}" ^
             -Dsonar.login="${{ secrets.SONAR_TOKEN }}"
-            -Dsonar.java.binaries=**/target/classes
     env:
         SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
