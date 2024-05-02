@@ -27,7 +27,6 @@ jobs:
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-        
 
       # Add more steps as necessary, such as testing and building your project
 
