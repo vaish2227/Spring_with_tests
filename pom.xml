@@ -52,6 +52,7 @@
     <dependency>
       <groupId>org.sonarsource.sonarqube</groupId>
       <artifactId>sonar-plugin-api</artifactId>
+      <version>9.2.1.49989</version>
       <scope>provided</scope>
     </dependency>
 
@@ -154,6 +155,7 @@
       <plugin>
          <groupId>org.sonarsource.scanner.maven</groupId>
           <artifactId>sonar-maven-plugin</artifactId>
+          <version>5.0.1:3006</version>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
