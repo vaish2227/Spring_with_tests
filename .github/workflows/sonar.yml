@@ -24,17 +24,17 @@ jobs:
 
       - name: SonarQube Scan
         run: |
-          # Assuming SonarQube Scanner is installed on the machine and available in the PATH
-          # Adjust the command according to your SonarQube Scanner installation
+          :: Assuming SonarQube Scanner is installed on the machine and available in the PATH
+          :: Adjust the command according to your SonarQube Scanner installation
           sonar-scanner ^
             -Dsonar.organization=my-org ^
             -Dsonar.projectKey=my-Java-web-app ^
             -Dsonar.host.url="${{ secrets.SONAR_HOST_URL }}" ^
             -Dsonar.login="${{ secrets.SONAR_TOKEN }}"
-        shell: pwsh # Use PowerShell as the shell
-    env:
-      SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+env:
+  SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+  SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
 
 
 
