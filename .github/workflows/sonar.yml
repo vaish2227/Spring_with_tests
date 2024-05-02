@@ -1,49 +1,32 @@
-# name: CI/CD workflow for Maven Build and Sonar Code scan
-# on:
-#   push:
-#     branches:
-#       - main
-#   workflow_dispatch:
-# jobs:
-#   build:
-#     runs-on: ubuntu-latest
-#     steps:
-#     - name: Checkout code
-#       uses: actions/checkout@v2
-#     - name: Set up JDK 11
-#       uses: actions/setup-java@v2
-#       with:
-#         distribution: 'adopt'
-#         java-version: '17'
-#     - name: Build with Maven
-#       run: mvn clean install -f pom.xml
-#     - name: SonarQube Scan
-#       uses: sonarsource/sonarqube-scan-action@master
-#       with:
-#         projectBaseDir: .
-#         args: >
-#           -Dsonar.organization=my-org
-#           -Dsonar.projectKey=my-Java-web-app
-#       env:
-#         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-#         SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-
-name: SonarQube Analysis
-
+name: CI/CD workflow for Maven Build and Sonar Code scan
 on:
   push:
     branches:
       - main
-
+  workflow_dispatch:
 jobs:
-  sonarqube:
-    runs-on: [self-hosted, windows]
+  build:
+    runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-      
-      - name: SonarQube Scanner
-        run: sonar-scanner.bat -Dsonar.host.url=http://localhost:9000 -Dsonar.login=sqa_90e47216dea0bd2ae5ca3502a2dcdbd0ac7a62f9 -Dsonar.projectKey=my-Java-web-app -Dsonar.projectName="my-Java-web-app"
+    - name: Checkout code
+      uses: actions/checkout@v2
+    - name: Set up JDK 11
+      uses: actions/setup-java@v2
+      with:
+        distribution: 'adopt'
+        java-version: '17'
+    - name: Build with Maven
+      run: mvn clean install -f pom.xml
+    - name: SonarQube Scan
+      uses: sonarsource/sonarqube-scan-action@master
+      with:
+        projectBaseDir: .
+        args: >
+          -Dsonar.organization=my-org
+          -Dsonar.projectKey=my-Java-web-app
+      env:
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
 
       # Add more steps as necessary, such as testing and building your project
 
