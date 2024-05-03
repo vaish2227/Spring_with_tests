@@ -1,82 +1,33 @@
-name: Build
+name: CI/CD workflow for Maven Build and Sonar Code scan
 
 on:
   push:
     branches:
-      - main # or the name of your main branch
-  pull_request:
-    types: [opened, synchronize, reopened]
+      - main
+  workflow_dispatch:
 
 jobs:
   build:
-    name: Build
     runs-on: self-hosted
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+
+      - name: Set up JDK 11
+        uses: actions/setup-java@v2
         with:
-          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+          distribution: 'adopt'
+          java-version: '17'
 
-      - name: Set up JDK 17
-        uses: actions/setup-java@v1
-        with:
-          java-version: 17
+      - name: Build with Maven
+        run: mvn compile
 
-      - name: Cache SonarQube packages
-        uses: actions/cache@v1
-        with:
-          path: ~/.sonar/cache
-          key: ${{ runner.os }}-sonar
-          restore-keys: ${{ runner.os }}-sonar
+      - name: SonarQube Scan
+        run: sonar-scanner -Dsonar.organization=my-org2 -Dsonar.projectKey=petclinic -Dsonar.host.url="${{ secrets.SONAR_HOST_URL }}" -Dsonar.login="${{ secrets.SONAR_TOKEN }}" -Dsonar.java.binaries="C:\Users\MFSPC003\actions-runner\_work\Spring_with_tests\Spring_with_tests\target\classes"
 
-      - name: Cache Maven packages
-        uses: actions/cache@v1
-        with:
-          path: ~/.m2
-          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
-          restore-keys: ${{ runner.os }}-m2
-
-      - name: Build and analyze
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-        run: mvn -B verify sonar:sonar -Dsonar.projectKey=petclinic
-
-
-
-
-
-# name: CI/CD workflow for Maven Build and Sonar Code scan
-
-# on:
-#   push:
-#     branches:
-#       - main
-#   workflow_dispatch:
-
-# jobs:
-#   build:
-#     runs-on: self-hosted
-#     steps:
-#       - name: Checkout code
-#         uses: actions/checkout@v2
-
-#       - name: Set up JDK 11
-#         uses: actions/setup-java@v2
-#         with:
-#           distribution: 'adopt'
-#           java-version: '17'
-
-#       - name: Build with Maven
-#         run: mvn compile
-
-#       - name: SonarQube Scan
-#         run: sonar-scanner -Dsonar.organization=my-org2 -Dsonar.projectKey=petclinic -Dsonar.host.url="${{ secrets.SONAR_HOST_URL }}" -Dsonar.login="${{ secrets.SONAR_TOKEN }}" -Dsonar.java.binaries="C:\Users\MFSPC003\actions-runner\_work\Spring_with_tests\Spring_with_tests\target\classes"
-
-#     env:
-#         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-#         SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+    env:
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
 
 
 # name: CI/CD workflow for Maven Build and Sonar Code scan
