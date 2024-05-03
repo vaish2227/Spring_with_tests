@@ -24,7 +24,7 @@ jobs:
         run: mvn compile
 
       - name: SonarQube Scan
-        run: sonar-scanner -Dsonar.host.url="${{ secrets.SONAR_HOST_URL }}" -Dsonar.login="${{ secrets.SONAR_TOKEN }}" -Dsonar.java.binaries="C:\Users\MFSPC003\actions-runner\_work\Spring_with_tests\Spring_with_tests\target\classes"
+        run: sonar-scanner -D sonar.host.url="${{ secrets.SONAR_HOST_URL }}" -D sonar.login="${{ secrets.SONAR_TOKEN }}" -D sonar.java.binaries="C:\Users\MFSPC003\actions-runner\_work\Spring_with_tests\Spring_with_tests\target\classes"
 
     env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
