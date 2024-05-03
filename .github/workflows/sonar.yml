@@ -24,7 +24,7 @@ jobs:
 
       - name: SonarQube Scan
         run: |
-          sonar-scanner -X \
+          sonar-scanner -X ^
           # -Dsonar.organization=my-org2 \
           # -Dsonar.projectKey=petclinic \
           # -Dsonar.host.url="${{ secrets.SONAR_HOST_URL }}" \
