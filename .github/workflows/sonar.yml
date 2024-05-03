@@ -34,7 +34,6 @@ jobs:
         SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
-
 # name: CI/CD workflow for Maven Build and Sonar Code scan
 # on:
 #   push:
