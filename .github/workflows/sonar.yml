@@ -23,7 +23,8 @@ jobs:
         run: mvn compile
 
       - name: SonarQube Scan
-        run: sonar-scanner -Dsonar.projectKey=petclinic -Dsonar.host.url="${{ secrets.SONAR_HOST_URL }}" -Dsonar.login="${{ secrets.SONAR_TOKEN }}" -Dsonar.java.binaries="C:\Users\MFSPC003\actions-runner\_work\Spring_with_tests\Spring_with_tests\target\classes"
+        run: sonar-scanner -Dsonar.organization=my-org2 -Dsonar.projectKey=petclinic -Dsonar.host.url="$SONAR_HOST_URL" -Dsonar.login="$SONAR_TOKEN" -Dsonar.java.binaries="C:\Users\MFSPC003\actions-runner\_work\Spring_with_tests\Spring_with_tests\target\classes"
+
 
     env:
         SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
