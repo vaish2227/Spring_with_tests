@@ -23,17 +23,18 @@ jobs:
         run: mvn compile
 
       - name: SonarQube Scan
-        run: |
-          sonar-scanner -X \
-            -Dsonar.organization="my-org2" \
-            -Dsonar.projectKey="petclinic" \
+        uses: sonarsource/sonarqube-scan-action@master
+        with:
+          projectBaseDir: .
+          args: >
+            -Dsonar.organization=my-org2 \
+            -Dsonar.projectKey=petclinic \
             -Dsonar.host.url="${{ secrets.SONAR_HOST_URL }}" \
             -Dsonar.login="${{ secrets.SONAR_TOKEN }}" \
             -Dsonar.java.binaries="C:\Users\MFSPC003\actions-runner\_work\Spring_with_tests\Spring_with_tests\target\classes"
-
     env:
-        SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
 
 # name: CI/CD workflow for Maven Build and Sonar Code scan
 # on:
