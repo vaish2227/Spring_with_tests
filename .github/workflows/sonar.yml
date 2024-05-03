@@ -25,8 +25,8 @@ jobs:
       - name: SonarQube Scan
         run: |
           sonar-scanner ^
-            -Dsonar.organization=my-org ^
-            -Dsonar.projectKey=my-Java-web-app ^
+            -Dsonar.organization=my-org2 ^
+            -Dsonar.projectKey=petclinic ^
             -Dsonar.host.url="${{ secrets.SONAR_HOST_URL }}" ^
             -Dsonar.login="${{ secrets.SONAR_TOKEN }}"
             -Dsonar.exclusions=**/*.java
