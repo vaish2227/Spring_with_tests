@@ -23,7 +23,7 @@ jobs:
         run: mvn compile
 
       - name: Setup SonarScanner
-        uses: sonarsource/sonar-scanner-cli@master
+        uses: sonarsource/sonar-scanner-cli@4.6.0
 
       - name: SonarQube Scan
         run: |
